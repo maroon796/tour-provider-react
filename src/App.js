@@ -8,13 +8,18 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const apiData = async () => {
-      const res = await fetch(url);
-      const data = await res.json();
-      setLoading(false);
-      console.log(data);
-    };
-    apiData();
+    try {
+      const apiData = async () => {
+        const res = await fetch(url);
+        const data = await res.json();
+        setLoading(false);
+        setTours(data);
+        console.log(data);
+      };
+      apiData();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   if (loading) {
@@ -27,7 +32,7 @@ function App() {
 
   return (
     <main>
-      <Tours />
+      <Tours tours={tours} />
     </main>
   );
 }
