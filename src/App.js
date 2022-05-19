@@ -22,6 +22,11 @@ function App() {
     }
   }, []);
 
+  const deleteTour = (id) => {
+    const newTours = tours.filter((tour) => id !== tour.id);
+    setTours(newTours);
+  };
+
   if (loading) {
     return (
       <main>
@@ -32,7 +37,7 @@ function App() {
 
   return (
     <main>
-      <Tours tours={tours} />
+      <Tours tours={tours} deleteTour={deleteTour} />
     </main>
   );
 }
