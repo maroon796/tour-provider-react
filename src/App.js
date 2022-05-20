@@ -7,19 +7,20 @@ function App() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const apiData = async () => {
     try {
-      const apiData = async () => {
-        const res = await fetch(url);
-        const data = await res.json();
-        setLoading(false);
-        setTours(data);
-        console.log(data);
-      };
-      apiData();
+      const res = await fetch(url);
+      const data = await res.json();
+      setLoading(false);
+      setTours(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  useEffect(() => {
+    apiData();
   }, []);
 
   const deleteTour = (id) => {
@@ -31,6 +32,19 @@ function App() {
     return (
       <main>
         <Loading />
+      </main>
+    );
+  }
+
+  if (tours.length === 0) {
+    return (
+      <main>
+        <div className="title">
+          <h2>No Tours Left</h2>
+          <button className="btn" onClick={apiData}>
+            Refresh
+          </button>
+        </div>
       </main>
     );
   }
